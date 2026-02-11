@@ -74,3 +74,5 @@ SELECT ARRAY(
 
 -- Clean up for next test
 SELECT * FROM pgmq.purge_queue('fifo_test_queue');
+-- Cleanup
+SELECT pgmq.drop_queue('fifo_test_queue');
