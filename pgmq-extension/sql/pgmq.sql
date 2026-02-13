@@ -271,7 +271,7 @@ BEGIN
         FROM selected_messages sm
         WHERE m.msg_id = sm.msg_id
           AND m.vt <= clock_timestamp() -- final guard to avoid duplicate reads under races
-        RETURNING m.msg_id, m.read_ct, m.enqueued_at, m.vt, m.message, m.headers;
+        RETURNING m.msg_id, m.read_ct, m.enqueued_at, m.last_read_at, m.vt, m.message, m.headers;
         $QUERY$,
         qtable, make_interval(secs => vt)
     );
