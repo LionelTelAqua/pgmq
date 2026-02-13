@@ -158,3 +158,10 @@ SELECT * FROM pgmq.purge_queue('fifo_test_queue');
            4
 (1 row)
 
+-- Cleanup
+SELECT pgmq.drop_queue('fifo_test_queue');
+ drop_queue 
+------------
+ t
+(1 row)
+
