@@ -263,11 +263,13 @@ BEGIN
 	        WHERE q.vt <= clock_timestamp()
             ORDER BY q.msg_id
             LIMIT $1
+            FOR UPDATE SKIP LOCKED
         )
         UPDATE pgmq.%1$I m
         SET
             vt = clock_timestamp() + %2$L,
-            read_ct = read_ct + 1
+            read_ct = read_ct + 1,
+            last_read_at = clock_timestamp()
         FROM selected_messages sm
         WHERE m.msg_id = sm.msg_id
           AND m.vt <= clock_timestamp() -- final guard to avoid duplicate reads under races
