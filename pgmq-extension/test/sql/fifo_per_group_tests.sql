@@ -17,14 +17,6 @@ SELECT * FROM pgmq.send('fifo_test_queue', '{"group": "B", "message": 1}'::jsonb
 SELECT * FROM pgmq.send('fifo_test_queue', '{"group": "B", "message": 2}'::jsonb, '{"x-pgmq-group": "group_B"}'::jsonb);
 SELECT * FROM pgmq.send('fifo_test_queue', '{"group": "C", "message": 1}'::jsonb, '{"x-pgmq-group": "group_C"}'::jsonb);
 
--- Set expected message IDs for SQS-style tests
-\set sqs_msg_id1 1
-\set sqs_msg_id2 2
-\set sqs_msg_id3 3
-\set sqs_msg_id4 4
-\set sqs_msg_id5 5
-\set sqs_msg_id6 6
-
 -- Verify we have 6 messages in queue
 SELECT COUNT(*) = 6 FROM pgmq.q_fifo_test_queue;
 
