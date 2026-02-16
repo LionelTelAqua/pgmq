@@ -350,7 +350,7 @@ BEGIN
                 SELECT *
                 FROM pgmq.%I t
                 WHERE COALESCE(t.headers->>'x-pgmq-group', '_default_fifo_group') = gp.fifo_key
-                AND t.vt < clock_timestamp()
+                AND t.vt <= clock_timestamp()
                 ORDER BY msg_id
                 LIMIT $1  -- tip to limit query impact, we know we need at most qty in each group
             ) t
